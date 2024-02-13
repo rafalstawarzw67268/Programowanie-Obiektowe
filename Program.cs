@@ -3,10 +3,10 @@ using System.Collections.Generic;
 
 class Program
 {
-    static List<Produkt> koszyk = new List<Produkt>();
-    static decimal lacznaCena = 0;
+    List<Produkt> koszyk = new List<Produkt>();
+    decimal lacznaCena = 0;
 
-    static void Main()
+    void Start()
     {
         while (true)
         {
@@ -62,10 +62,11 @@ class Program
             }
         }
     }
-    static void PokazProdukty(string kategoria)
+
+    void PokazProdukty(string kategoria)
     {
         Console.WriteLine($"--- {kategoria} ---");
-        List<Produkt> produkty = PobierzProdukty(kategoria);
+        List<Produkt> produkty = Produkt.PobierzProdukty(kategoria);
 
         foreach (var produkt in produkty)
         {
@@ -82,7 +83,7 @@ class Program
         }
     }
 
-    static void DodajDoKoszyka(Produkt produkt)
+    void DodajDoKoszyka(Produkt produkt)
     {
         koszyk.Add(produkt);
         lacznaCena += produkt.Cena;
@@ -92,7 +93,8 @@ class Program
         Console.WriteLine("Naciśnij Enter, aby kontynuować...");
         Console.ReadLine();
     }
-    static void ZaplacKarta()
+
+    void ZaplacKarta()
     {
         if (koszyk.Count > 0)
         {
@@ -109,7 +111,6 @@ class Program
                 Console.WriteLine($"Numer karty: {numerKarty}");
                 Console.WriteLine($"Reszta: {kwota - lacznaCena} zł");
                 Console.WriteLine("Naciśnij Enter, aby kontynuować...");
-                Console.ReadLine();
 
                 ResetujKoszyk();
             }
@@ -128,7 +129,7 @@ class Program
         }
     }
 
-    static void PokazKoszyk()
+    void PokazKoszyk()
     {
         Console.WriteLine("--- Koszyk ---");
 
@@ -150,69 +151,15 @@ class Program
         Console.ReadLine();
     }
 
-    static void ResetujKoszyk()
+    void ResetujKoszyk()
     {
         koszyk.Clear();
         lacznaCena = 0;
     }
 
-    static List<Produkt> PobierzProdukty(string kategoria)
+    static void Main()
     {
-
-        List<Produkt> produkty = new List<Produkt>();
-
-        if (kategoria == "Odzież")
-        {
-            produkty.Add(new Produkt("Koszulka w kwiatki", 29.99m));
-            produkty.Add(new Produkt("Jeansy damskie szare ", 49.99m));
-            produkty.Add(new Produkt("Spodnie dresowe ", 30.99m));
-            produkty.Add(new Produkt("Spodnie brązwoe Chino ", 59.99m));
-            produkty.Add(new Produkt("Bluza męska z kaputem", 35.99m));
-            produkty.Add(new Produkt("Szara koszula ", 29.99m));
-            produkty.Add(new Produkt("Koszulka sportowa biała", 15.99m));
-            produkty.Add(new Produkt("Koszulka sporotwa czarna", 14.99m));
-        }
-        else if (kategoria == "Obuwie")
-        {
-            produkty.Add(new Produkt("Buty sportowe BIG STAR", 89.99m));
-            produkty.Add(new Produkt("Sandały", 39.99m));
-            produkty.Add(new Produkt("Trampki Kappa  ", 49.99m));
-            produkty.Add(new Produkt("Buty wojskowe wodoodporne", 79.99m));
-            produkty.Add(new Produkt("Sneakersy 4F ", 37.99m));
-        }
-        else if (kategoria == "Okulary")
-        {
-            produkty.Add(new Produkt("Okulary przeciwsłoneczne", 59.99m));
-            produkty.Add(new Produkt("Okulary korekcyjne", 79.99m));
-            produkty.Add(new Produkt("Czarne okulary Red Sunset", 89.99m));
-            produkty.Add(new Produkt("Okulary korekcyjne Grant Americano", 99.99m));
-            produkty.Add(new Produkt("ICON Reading i102 - Okulary do czytania", 59.99m));
-        }
-        else if (kategoria == "Kurtki")
-        {
-            produkty.Add(new Produkt("Kurtka zimowa", 149.99m));
-            produkty.Add(new Produkt("Kurtka skórzana", 199.99m));
-            produkty.Add(new Produkt("Kurtki puchowa damskia", 219.99m));
-            produkty.Add(new Produkt("Pikowana kurtka z kapturem beżowa", 139.99m));
-            produkty.Add(new Produkt("Bordowa Pikowana Kurtka", 179.99m));
-            produkty.Add(new Produkt("Pikowana kurtka męska niebieska", 159.99m));
-            produkty.Add(new Produkt("Pikowana kurtka męska szara", 159.99m));
-
-        }
-
-        return produkty;
+        Program program = new Program();
+        program.Start();
     }
-}
-
-class Produkt
-{
-    public string Nazwa { get; set; }
-    public decimal Cena { get; set; }
-
-    public Produkt(string nazwa, decimal cena)
-    {
-        Nazwa = nazwa;
-        Cena = cena;
-    }
-
 }
